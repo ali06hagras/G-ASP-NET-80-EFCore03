@@ -14,9 +14,11 @@ namespace Assignment19.Models
         public string Title { get; set; }
         public string? Description { get; set; }
         public decimal Price { get; set; }
-        public CourseLevel Level { get; set; }
+        public CourseLevelEnum Level { get; set; }
         public bool IsPublished { get; set; }
+        public DateTime? PublishedDate { get; set; }// make it set automatichally with GETDATE() if it is published
         public CourseInstructor? PublisherInstructor { get; set; }
         public CourseCategory? CategoryedCourse { get; set; }
+        public ICollection<Enrollment> EnrolledStudents { get; set; }
     }
 }

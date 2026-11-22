@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Assignment19.Enums
 {
-    public enum CourseLevel
+    public enum EnrollmentStatusEnum
     {
-        Beginner,
-        Intermediate,
-        Advanced
+        Active,
+        Completed,
+        Dropped
     }
 }

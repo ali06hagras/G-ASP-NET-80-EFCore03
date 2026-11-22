@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assignment19.Models.JunctionTables;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,6 @@ namespace Assignment19.Models
         public string FullName { get; set; }
         public string EmailAddress { get; set; }
         public DateTime DateOfBirth { get; set; }
+        public ICollection<Enrollment> EnrolledCourses { get; set; }
     }
 }

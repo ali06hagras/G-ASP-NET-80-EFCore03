@@ -9,8 +9,8 @@ namespace Assignment19.Models.JunctionTables
     public class CourseInstructor
     {
         public int CourseId { get; set; }//PK
-        public int InstructorId { get; set; }
         public Course Course { get; set; }
+        public int InstructorId { get; set; }
         public Instructor Instructor { get; set; }
     }
 }
