@@ -17,5 +17,6 @@ namespace Assignment19.Models
         public CourseLevel Level { get; set; }
         public bool IsPublished { get; set; }
         public CourseInstructor? PublisherInstructor { get; set; }
+        public CourseCategory? CategoryedCourse { get; set; }
     }
 }
