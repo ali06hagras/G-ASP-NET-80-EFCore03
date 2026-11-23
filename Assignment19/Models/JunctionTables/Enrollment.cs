@@ -16,6 +16,6 @@ namespace Assignment19.Models.JunctionTables
         public DateTime EnrollmentDate { get; set; } // GetDATE()
         public int ProgressPercentage { get; set; }
         public EnrollmentStatusEnum Status { get; set; }
-        public int? FinalGrade { get; set; } // only when status is completed
+        public decimal? FinalGrade { get; set; } // only when status is completed
     }
 }

@@ -13,6 +13,6 @@ namespace Assignment19.Models
         public string FullName { get; set; }
         public string EmailAddress { get; set; }
         public DateTime DateOfBirth { get; set; }
-        public ICollection<Enrollment> EnrolledCourses { get; set; }
+        public ICollection<Enrollment> EnrolledCourses { get; set; } = new List<Enrollment>();
     }
 }

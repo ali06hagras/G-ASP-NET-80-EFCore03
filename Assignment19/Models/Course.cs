@@ -16,7 +16,7 @@ namespace Assignment19.Models
         public decimal Price { get; set; }
         public CourseLevelEnum Level { get; set; }
         public bool IsPublished { get; set; }
-        public DateTime? PublishedDate { get; set; }// make it set automatichally with GETDATE() if it is published
+        public DateTime? PublishingDate { get; set; }// make it set automatichally with GETDATE() if it is published
         public CourseInstructor? PublisherInstructor { get; set; }
         public CourseCategory? CategoryedCourse { get; set; }
         public ICollection<Enrollment> EnrolledStudents { get; set; }

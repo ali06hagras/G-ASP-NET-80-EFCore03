@@ -11,9 +11,14 @@ namespace Assignment19.Configurations
 {
     public class InstructorConfiguration : IEntityTypeConfiguration<Instructor>
     {
-        public void Configure(EntityTypeBuilder<Instructor> builder)
+        public void Configure(EntityTypeBuilder<Instructor> I)
         {
-            throw new NotImplementedException();
+            I.ToTable("Instructors");
+            I.Property(i=> i.FullName).IsRequired().HasMaxLength(100);
+            I.Property(i=> i.EmailAddress).IsRequired().HasMaxLength(100);
+            I.Property(i=> i.ShortBio).IsRequired(false).HasMaxLength(250);
+            I.Property(i => i.DateOfJoin).HasDefaultValueSql("GETDATE()");
+            I.HasMany(i => i.CoursesInstructed).WithOne(ci => ci.Instructor).HasForeignKey(ci => ci.InstructorId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
