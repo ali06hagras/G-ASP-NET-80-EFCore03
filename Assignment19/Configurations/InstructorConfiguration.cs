@@ -18,7 +18,23 @@ namespace Assignment19.Configurations
             I.Property(i=> i.EmailAddress).IsRequired().HasMaxLength(100);
             I.Property(i=> i.ShortBio).IsRequired(false).HasMaxLength(250);
             I.Property(i => i.DateOfJoin).HasDefaultValueSql("GETDATE()");
-            I.HasMany(i => i.CoursesInstructed).WithOne(ci => ci.Instructor).HasForeignKey(ci => ci.InstructorId).OnDelete(DeleteBehavior.Restrict);
+            I.HasData(
+                new Instructor
+                {
+                    Id = 1,
+                    FullName = "Dr. Tariq Mansour",
+                    EmailAddress = "tariq.mansour@example.edu",
+                    ShortBio = "Senior software engineer with 12 years of experience in .NET and distributed systems.",
+                    DateOfJoin = new DateTime(2019, 9, 1)
+                },
+                new Instructor
+                {
+                    Id = 2,
+                    FullName = "Nadia El-Sayed",
+                    EmailAddress = "nadia.elsayed@example.edu",
+                    ShortBio = null,
+                    DateOfJoin = new DateTime(2022, 2, 15)
+                });
         }
     }
 }

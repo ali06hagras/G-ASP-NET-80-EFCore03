@@ -47,6 +47,34 @@ namespace Assignment19.Migrations
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("Categories", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "All programming related courses",
+                            Name = "Programming"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Courses related to web development",
+                            Name = "Web Development",
+                            ParentCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Description = "Courses related to mobile development",
+                            Name = "Mobile Development",
+                            ParentCategoryId = 1
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Description = "Courses related to data science",
+                            Name = "Data Science"
+                        });
                 });
 
             modelBuilder.Entity("Assignment19.Models.Course", b =>
@@ -57,9 +85,15 @@ namespace Assignment19.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<int>("InstructorId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsPublished")
                         .HasColumnType("bit");
@@ -83,9 +117,58 @@ namespace Assignment19.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("InstructorId");
+
                     b.ToTable("Courses", null, t =>
                         {
                             t.HasCheckConstraint("CK_Courses_PublishingDate", "([IsPublished] = 0 AND [PublishingDate] IS NULL) OR ([IsPublished] = 1 AND [PublishingDate] IS NOT NULL)");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "Learn the basics of programming using C#.",
+                            InstructorId = 1,
+                            IsPublished = false,
+                            Level = "Beginner",
+                            Price = 99.99m,
+                            Title = "Introduction to Programming"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            Description = "Master advanced web development techniques using ASP.NET Core.",
+                            InstructorId = 2,
+                            IsPublished = false,
+                            Level = "Advanced",
+                            Price = 199.99m,
+                            Title = "Advanced Web Development"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 3,
+                            InstructorId = 1,
+                            IsPublished = true,
+                            Level = "Beginner",
+                            Price = 200.00m,
+                            PublishingDate = new DateTime(2025, 1, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Mobile Development"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 4,
+                            InstructorId = 2,
+                            IsPublished = false,
+                            Level = "Beginner",
+                            Price = 150.00m,
+                            Title = "Intro To Data Science"
                         });
                 });
 
@@ -119,36 +202,23 @@ namespace Assignment19.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Instructors", (string)null);
-                });
 
-            modelBuilder.Entity("Assignment19.Models.JunctionTables.CourseCategory", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("CourseCategory");
-                });
-
-            modelBuilder.Entity("Assignment19.Models.JunctionTables.CourseInstructor", b =>
-                {
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InstructorId")
-                        .HasColumnType("int");
-
-                    b.HasKey("CourseId");
-
-                    b.HasIndex("InstructorId");
-
-                    b.ToTable("CourseInstructor");
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfJoin = new DateTime(2019, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "tariq.mansour@example.edu",
+                            FullName = "Dr. Tariq Mansour",
+                            ShortBio = "Senior software engineer with 12 years of experience in .NET and distributed systems."
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateOfJoin = new DateTime(2022, 2, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "nadia.elsayed@example.edu",
+                            FullName = "Nadia El-Sayed"
+                        });
                 });
 
             modelBuilder.Entity("Assignment19.Models.JunctionTables.Enrollment", b =>
@@ -186,6 +256,25 @@ namespace Assignment19.Migrations
 
                             t.HasCheckConstraint("CK_Enrollments_Progress", "[ProgressPercentage] >= 0 AND [ProgressPercentage] <= 100");
                         });
+
+                    b.HasData(
+                        new
+                        {
+                            StudentId = 1,
+                            CourseId = 3,
+                            EnrollmentDate = new DateTime(2025, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            FinalGrade = 95.50m,
+                            ProgressPercentage = 100,
+                            Status = "Completed"
+                        },
+                        new
+                        {
+                            StudentId = 2,
+                            CourseId = 3,
+                            EnrollmentDate = new DateTime(2025, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ProgressPercentage = 40,
+                            Status = "Active"
+                        });
                 });
 
             modelBuilder.Entity("Assignment19.Models.Student", b =>
@@ -212,6 +301,29 @@ namespace Assignment19.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            DateOfBirth = new DateTime(2002, 4, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "omar.hassan@student.edu",
+                            FullName = "Omar Hassan"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            DateOfBirth = new DateTime(2003, 11, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "salma.ibrahim@student.edu",
+                            FullName = "Salma Ibrahim"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            DateOfBirth = new DateTime(2001, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            EmailAddress = "youssef.adel@student.edu",
+                            FullName = "Youssef Adel"
+                        });
                 });
 
             modelBuilder.Entity("Assignment19.Models.Category", b =>
@@ -224,31 +336,12 @@ namespace Assignment19.Migrations
                     b.Navigation("ParentCategory");
                 });
 
-            modelBuilder.Entity("Assignment19.Models.JunctionTables.CourseCategory", b =>
+            modelBuilder.Entity("Assignment19.Models.Course", b =>
                 {
                     b.HasOne("Assignment19.Models.Category", "Category")
                         .WithMany("Courses")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Assignment19.Models.Course", "Course")
-                        .WithOne("CategoryedCourse")
-                        .HasForeignKey("Assignment19.Models.JunctionTables.CourseCategory", "CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Course");
-                });
-
-            modelBuilder.Entity("Assignment19.Models.JunctionTables.CourseInstructor", b =>
-                {
-                    b.HasOne("Assignment19.Models.Course", "Course")
-                        .WithOne("PublisherInstructor")
-                        .HasForeignKey("Assignment19.Models.JunctionTables.CourseInstructor", "CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Assignment19.Models.Instructor", "Instructor")
@@ -257,7 +350,7 @@ namespace Assignment19.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Course");
+                    b.Navigation("Category");
 
                     b.Navigation("Instructor");
                 });
@@ -290,11 +383,7 @@ namespace Assignment19.Migrations
 
             modelBuilder.Entity("Assignment19.Models.Course", b =>
                 {
-                    b.Navigation("CategoryedCourse");
-
                     b.Navigation("EnrolledStudents");
-
-                    b.Navigation("PublisherInstructor");
                 });
 
             modelBuilder.Entity("Assignment19.Models.Instructor", b =>

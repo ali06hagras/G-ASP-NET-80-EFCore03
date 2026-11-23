@@ -14,6 +14,6 @@ namespace Assignment19.Models
         public string EmailAddress { get; set; }
         public string? ShortBio { get; set; }
         public DateTime DateOfJoin { get; set; }
-        public ICollection<CourseInstructor> CoursesInstructed { get; set; } = new List<CourseInstructor>();
+        public ICollection<Course> CoursesInstructed { get; set; } = new List<Course>();
     }
 }

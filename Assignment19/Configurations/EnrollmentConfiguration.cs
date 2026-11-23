@@ -1,4 +1,5 @@
-﻿using Assignment19.Models.JunctionTables;
+﻿using Assignment19.Enums;
+using Assignment19.Models.JunctionTables;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -36,6 +37,26 @@ namespace Assignment19.Configurations
               .WithMany(c => c.EnrolledStudents)
               .HasForeignKey(e => e.CourseId)
               .OnDelete(DeleteBehavior.Cascade);
+            E.HasData(
+                new Enrollment
+                {
+                    StudentId = 1,
+                    CourseId = 3,
+                    EnrollmentDate = new DateTime(2025, 2, 1),
+                    ProgressPercentage = 100,
+                    Status = EnrollmentStatusEnum.Completed,
+                    FinalGrade = 95.50m
+                },
+                new Enrollment
+                {
+                    StudentId = 2,
+                    CourseId = 3,
+                    EnrollmentDate = new DateTime(2025, 2, 5),
+                    ProgressPercentage = 40,
+                    Status = EnrollmentStatusEnum.Active,
+                    FinalGrade = null
+                }
+            );
         }
     }
 }

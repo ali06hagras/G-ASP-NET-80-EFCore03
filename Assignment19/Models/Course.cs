@@ -17,8 +17,10 @@ namespace Assignment19.Models
         public CourseLevelEnum Level { get; set; }
         public bool IsPublished { get; set; }
         public DateTime? PublishingDate { get; set; }// make it set automatichally with GETDATE() if it is published
-        public CourseInstructor? PublisherInstructor { get; set; }
-        public CourseCategory? CategoryedCourse { get; set; }
+        public int InstructorId { get; set; }
+        public Instructor Instructor { get; set; }
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
         public ICollection<Enrollment> EnrolledStudents { get; set; }
     }
 }

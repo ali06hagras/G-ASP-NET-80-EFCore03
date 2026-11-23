@@ -17,10 +17,29 @@ namespace Assignment19.Configurations
             S.Property(s => s.FullName).IsRequired().HasMaxLength(100);
             S.Property(s => s.EmailAddress).IsRequired().HasMaxLength(100);
             S.Property(s => s.DateOfBirth).IsRequired().HasColumnType("datetime2");
-            S.HasMany(s => s.EnrolledCourses)
-             .WithOne(e => e.Student)
-             .HasForeignKey(e => e.StudentId)
-             .OnDelete(DeleteBehavior.Cascade);
+            S.HasData(
+                new Student
+                {
+                    Id = 1,
+                    FullName = "Omar Hassan",
+                    EmailAddress = "omar.hassan@student.edu",
+                    DateOfBirth = new DateTime(2002, 4, 18)
+                },
+                new Student
+                {
+                    Id = 2,
+                    FullName = "Salma Ibrahim",
+                    EmailAddress = "salma.ibrahim@student.edu",
+                    DateOfBirth = new DateTime(2003, 11, 7)
+                },
+                new Student
+                {
+                    Id = 3,
+                    FullName = "Youssef Adel",
+                    EmailAddress = "youssef.adel@student.edu",
+                    DateOfBirth = new DateTime(2001, 7, 25)
+                }
+                );
         }
     }
 }

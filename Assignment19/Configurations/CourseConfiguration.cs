@@ -1,4 +1,5 @@
-﻿using Assignment19.Models;
+﻿using Assignment19.Enums;
+using Assignment19.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -31,6 +32,64 @@ namespace Assignment19.Configurations
                 .WithOne(e => e.Course)
                 .HasForeignKey(e => e.CourseId)
                 .OnDelete(DeleteBehavior.Cascade);
+            C.HasOne(c => c.Instructor)
+                .WithMany(i => i.CoursesInstructed)
+                .HasForeignKey(c => c.InstructorId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+            C.HasOne(c => c.Category)
+                .WithMany(cat => cat.Courses)
+                .HasForeignKey(c => c.CategoryId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+            C.HasData(
+                new Course
+                {
+                    Id = 1,
+                    Title = "Introduction to Programming",
+                    Description = "Learn the basics of programming using C#.",
+                    Price = 99.99m,
+                    Level = CourseLevelEnum.Beginner,
+                    IsPublished = false,
+                    PublishingDate = null,
+                    InstructorId = 1,
+                    CategoryId = 1
+                },
+                new Course
+                {
+                    Id = 2,
+                    Title = "Advanced Web Development",
+                    Description = "Master advanced web development techniques using ASP.NET Core.",
+                    Price = 199.99m,
+                    Level = CourseLevelEnum.Advanced,
+                    IsPublished = false,
+                    PublishingDate = null,
+                    InstructorId = 2,
+                    CategoryId = 2
+                },
+                new Course
+                {
+                    Id = 3,
+                    Title = "Mobile Development",
+                    Price = 200.00m,
+                    Level = CourseLevelEnum.Beginner,
+                    IsPublished = true,
+                    PublishingDate = new DateTime(2025, 1, 15),
+                    InstructorId = 1,
+                    CategoryId = 3
+                },
+                new Course
+                {
+                    Id = 4,
+                    Title = "Intro To Data Science",
+                    Price = 150.00m,
+                    Level = CourseLevelEnum.Beginner,
+                    IsPublished = false,
+                    PublishingDate = null,
+                    InstructorId = 2,
+                    CategoryId = 4
+                }
+            );
         }
     }
 }
