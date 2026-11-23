@@ -63,6 +63,16 @@ namespace Assignment19.CRUD_Methods
                 Console.WriteLine("Cannot delete this category because it has sub-categories.");
                 return false;
             }
+
+            bool hasCourses = context.Courses
+                                     .Any(c => c.CategoryId == categoryId);
+
+            if (hasCourses)
+            {
+                Console.WriteLine("Cannot delete this category because it has courses.");
+                return false;
+            }
+
             context.Categories.Remove(category);
             context.SaveChanges();
 
@@ -80,6 +90,8 @@ namespace Assignment19.CRUD_Methods
             }
             int beforeCount = context.Enrollments
                                      .Count(e => e.CourseId == courseId);
+
+            Console.WriteLine($"Enrollments before deletion: {beforeCount}");
 
             context.Courses.Remove(course);
             context.SaveChanges();

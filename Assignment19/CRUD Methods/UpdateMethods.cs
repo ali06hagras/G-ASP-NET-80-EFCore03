@@ -19,6 +19,11 @@ namespace Assignment19.CRUD_Methods
                 Console.WriteLine("Course not found.");
                 return;
             }
+            if (newPrice < 0)
+            {
+                Console.WriteLine("Course price cannot be negative.");
+                return;
+            }
             var oldPrice = course.Price;
             course.Price = newPrice;
             context.SaveChanges();
@@ -38,6 +43,11 @@ namespace Assignment19.CRUD_Methods
                 Console.WriteLine("Enrollment not found.");
                 return;
             }
+            if (enrollment.Status == EnrollmentStatusEnum.Dropped)
+            {
+                Console.WriteLine("Cannot update progress of a dropped enrollment.");
+                return;
+            }
             enrollment.ProgressPercentage = newProgressPrecentage;
             if (newProgressPrecentage == 100)
                 enrollment.Status = EnrollmentStatusEnum.Completed;
@@ -51,6 +61,11 @@ namespace Assignment19.CRUD_Methods
             if (course == null)
             {
                 Console.WriteLine("Course not found.");
+                return;
+            }
+            if (course.IsPublished)
+            {
+                Console.WriteLine("Course is already Published.");
                 return;
             }
             course.IsPublished = true;

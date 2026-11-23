@@ -132,7 +132,7 @@ namespace Assignment19.CRUD_Methods
                 Console.WriteLine("Student is already enrolled in this course.");
                 return;
             }
-            if(context.Courses.FirstOrDefault(c => c.Id == courseId).IsPublished == false)
+            if(!course.IsPublished)
             {
                 Console.WriteLine("Cannot Enroll in an unPublished Course.");
                 return;

@@ -48,9 +48,9 @@ namespace Assignment19.CRUD_Methods
             }
             else
             {
+                int x = 1;
                 foreach (var course in result)
                 {
-                    int x = 1;
                     Console.WriteLine("{0}) Title: {1}, Level: {2}, Price: {3}", x, course.Title, course.Level, course.Price);
                     x++;
                 }
@@ -110,9 +110,9 @@ namespace Assignment19.CRUD_Methods
             }
             var students = context.Students.Where(s => studentIds.Contains(s.Id)).ToList();
             Console.WriteLine("Course Roster: ");
+            int x = 1;
             foreach (var student in students)
             {
-                int x = 1;
                 Console.WriteLine($"{x}) {student.Id} - {student.FullName}");
                 x++;
             }
