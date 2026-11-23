@@ -40,6 +40,10 @@ namespace Assignment19.CRUD_Methods
 
                 Console.WriteLine("Category deleted successfully.");
             }
+            catch (InvalidOperationException ex)
+            {
+                Console.WriteLine($"Invalid operation: {ex.Message}");
+            }
             catch (DbUpdateException ex)
             {
                 Console.WriteLine("Cannot delete this category!");
@@ -92,6 +96,18 @@ namespace Assignment19.CRUD_Methods
                                      .Count(e => e.CourseId == courseId);
 
             Console.WriteLine($"Enrollments before deletion: {beforeCount}");
+
+            if (course.Category != null)
+            {
+                Console.WriteLine("Cannot delete this Course because it has category.");
+                return;
+            }
+
+            if (course.Instructor != null)
+            {
+                Console.WriteLine("Cannot delete this Course because it has instructor.");
+                return;
+            }
 
             context.Courses.Remove(course);
             context.SaveChanges();
